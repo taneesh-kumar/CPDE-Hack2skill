@@ -1,11 +1,25 @@
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
-import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom'
+import { Link as RouterLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
+
+import cpdeLogo from '../assets/image-removebg-preview (4).png'
 
 export default function AppShell() {
   const location = useLocation()
+  const navigate = useNavigate()
   const isLanding = location.pathname === '/'
   const [language, setLanguage] = useState('en')
+
+  const homeRoute = isLanding ? '/' : '/dashboard'
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('cpde:farmId')
+    } catch {
+      // ignore
+    }
+    navigate('/')
+  }
 
   const appBarSx = useMemo(
     () =>
@@ -30,21 +44,47 @@ export default function AppShell() {
         sx={appBarSx}
       >
         <Toolbar sx={{ minHeight: { xs: 56, sm: 64 } }}>
-          <Typography
-            variant="h6"
+          <Box
+            component={RouterLink}
+            to={homeRoute}
+            aria-label="Go to home"
             sx={{
-              fontWeight: 900,
-              letterSpacing: 0.5,
-              fontFamily: isLanding ? 'Rozha One, serif' : undefined,
+              display: 'inline-flex',
+              alignItems: 'center',
+              textDecoration: 'none',
+              color: 'inherit',
+              lineHeight: 0,
             }}
           >
-            CPDE
-          </Typography>
+            <Box
+              component="img"
+              src={cpdeLogo}
+              alt="CPDE"
+              sx={{
+                height: { xs: 40, sm: 48 },
+                width: 'auto',
+                display: 'block',
+              }}
+            />
+          </Box>
 
           {!isLanding && (
             <Typography sx={{ ml: 1, color: 'text.secondary', fontWeight: 600 }}>
               Crop Failure Pre‑Cause Detection Engine
             </Typography>
+          )}
+
+          {!isLanding && (
+            <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
+              <Button
+                onClick={handleLogout}
+                variant="outlined"
+                size="small"
+                sx={{ textTransform: 'none', fontWeight: 800 }}
+              >
+                Logout
+              </Button>
+            </Box>
           )}
 
           {isLanding && (
