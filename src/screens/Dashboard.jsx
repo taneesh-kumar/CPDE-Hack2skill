@@ -17,7 +17,7 @@ import ReportRoundedIcon from '@mui/icons-material/ReportRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import TrendingFlatRoundedIcon from '@mui/icons-material/TrendingFlatRounded'
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import DidYouKnowCard from '../widgets/DidYouKnowCard.jsx'
 import RiskTrendChart from '../widgets/RiskTrendChart.jsx'
@@ -27,6 +27,7 @@ export default function Dashboard() {
   const navigate = useNavigate()
   const summary = useGridSummary()
   const theme = useTheme()
+  const [now, setNow] = useState(() => new Date())
   const [checks, setChecks] = useState(() => ({
     uneven: false,
     nozzles: false,
@@ -34,9 +35,22 @@ export default function Dashboard() {
     color: false,
   }))
 
+  useEffect(() => {
+    const intervalId = setInterval(() => setNow(new Date()), 60 * 1000)
+    return () => clearInterval(intervalId)
+  }, [])
+
   const greetingName = summary.farmerName || 'Farmer'
   const riskLabel = (summary.riskLevel || 'Low').toUpperCase()
   const riskScore = Math.round(Number(summary.riskScore) || 0)
+
+  const greeting = useMemo(() => {
+    const hour = now.getHours()
+    if (hour >= 5 && hour < 12) return 'Good morning'
+    if (hour >= 12 && hour < 17) return 'Good afternoon'
+    if (hour >= 17 && hour < 21) return 'Good evening'
+    return 'Good night'
+  }, [now])
 
   const riskChipColor = useMemo(() => {
     if (riskLabel === 'HIGH') return 'error'
@@ -109,7 +123,7 @@ export default function Dashboard() {
           <Stack spacing={3}>
             <Stack spacing={1}>
               <Typography sx={{ fontWeight: 950, fontSize: { xs: 18, md: 20 }, lineHeight: 1.15 }}>
-                Good morning, {greetingName}
+                {greeting}, {greetingName}
               </Typography>
               <Typography sx={{ color: 'text.secondary', fontWeight: 700 }}>
                 Higher score means more uneven field conditions
