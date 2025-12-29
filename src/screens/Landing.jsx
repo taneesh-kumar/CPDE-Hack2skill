@@ -46,7 +46,9 @@ export default function Landing() {
               maxWidth: 720,
               bgcolor: 'rgba(255,255,255,0.90)',
               border: '1px solid rgba(255,255,255,0.55)',
-              borderRadius: 4,
+              borderRadius: '14px',
+              overflow: 'hidden',
+              boxSizing: 'border-box',
               backdropFilter: 'blur(10px)',
               p: { xs: 3, md: 4 },
               boxShadow: '0px 18px 50px rgba(0,0,0,0.25)',
@@ -185,40 +187,6 @@ export default function Landing() {
             </Grid>
           </Grid>
 
-          {/* Preserve existing landing functionality to access Alerts */}
-          <Box sx={{ mt: 3 }}>
-            <Button
-              variant="outlined"
-              size="large"
-              onClick={() => navigate('/alerts')}
-              sx={{
-                textTransform: 'none',
-                fontFamily: 'Poppins, sans-serif',
-                fontWeight: 800,
-                borderColor: 'rgba(45,90,39,0.55)',
-                color: '#2D5A27',
-                '&:hover': { borderColor: '#2D5A27', bgcolor: 'rgba(45,90,39,0.06)' },
-              }}
-            >
-              See Alerts & Education
-            </Button>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* FOOTER BAND (matches theme requirement for earthy brown) */}
-      <Box
-        sx={{
-          bgcolor: '#4A3B32',
-          color: 'rgba(255,255,255,0.85)',
-          py: 2.5,
-          fontFamily: 'Poppins, sans-serif',
-        }}
-      >
-        <Container maxWidth="lg">
-          <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
-            CPDE — Crop Failure Pre‑Cause Detection Engine
-          </Typography>
         </Container>
       </Box>
     </Box>
@@ -232,7 +200,9 @@ function FeatureCard({ icon, title, text }) {
       elevation={0}
       sx={{
         height: '100%',
-        borderRadius: 3,
+        borderRadius: '14px',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
         border: '1px solid rgba(74,59,50,0.14)',
       }}
     >
@@ -241,7 +211,7 @@ function FeatureCard({ icon, title, text }) {
           sx={{
             width: 44,
             height: 44,
-            borderRadius: 2,
+            borderRadius: '14px',
             display: 'grid',
             placeItems: 'center',
             bgcolor: 'rgba(74,59,50,0.08)',

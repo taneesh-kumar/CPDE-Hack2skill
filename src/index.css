@@ -8,6 +8,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
@@ -15,6 +21,7 @@ body {
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 #root {

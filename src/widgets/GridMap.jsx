@@ -109,7 +109,16 @@ export default function GridMap({ gridSize = 8 }) {
 
   return (
     <Box sx={{ height: '100%', position: 'relative' }}>
-      <Box sx={{ height: '100%', width: '100%', borderRadius: 2, overflow: 'hidden', bgcolor: 'grey.100' }}>
+      <Box
+        sx={{
+          height: '100%',
+          width: '100%',
+          borderRadius: '14px',
+          overflow: 'hidden',
+          boxSizing: 'border-box',
+          bgcolor: 'grey.100',
+        }}
+      >
         <MapContainer
           center={centerFromPolygon(fieldPolygon)}
           zoom={16}
@@ -137,9 +146,16 @@ export default function GridMap({ gridSize = 8 }) {
         anchor="bottom"
         open={Boolean(selected)}
         onClose={() => setSelected(null)}
-        PaperProps={{ sx: { borderTopLeftRadius: 24, borderTopRightRadius: 24 } }}
+        PaperProps={{
+          sx: {
+            borderTopLeftRadius: '16px',
+            borderTopRightRadius: '16px',
+            overflow: 'hidden',
+            boxSizing: 'border-box',
+          },
+        }}
       >
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ p: { xs: 2.5, md: 3 }, boxSizing: 'border-box' }}>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Typography sx={{ fontWeight: 900, flex: 1 }}>
               {selected ? `Zone ${selected.zoneId} Risk: ${selectedLevelLabel}` : 'Zone'}

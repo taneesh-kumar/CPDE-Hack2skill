@@ -1,17 +1,16 @@
 import { createTheme } from '@mui/material/styles'
 
-// “Green Agricultural Sector” — deep greens, earthy browns, clean whites.
-// High-contrast defaults for outdoor readability.
 export const cpdeTheme = createTheme({
   palette: {
     mode: 'light',
-    primary: { main: '#1B5E20' }, // deep crop green
-    secondary: { main: '#6D4C41' }, // earthy brown
-    background: { default: '#FAFAFA', paper: '#FFFFFF' },
-    success: { main: '#2E7D32' },
+    primary: { main: '#1f7a4d' },
+    // Keep a green-forward secondary for outlines/accents.
+    secondary: { main: '#2f8f5b', light: '#e8f5ee' },
+    background: { default: '#F6F8F7', paper: '#FFFFFF' },
+    success: { main: '#1f7a4d' },
     warning: { main: '#F9A825' },
-    error: { main: '#C62828' },
-    text: { primary: '#102015', secondary: '#2B3A2E' },
+    error: { main: '#D14343', light: '#FDECEC' },
+    text: { primary: '#0E1F16', secondary: '#2F3C35' },
   },
   shape: { borderRadius: 14 },
   typography: {
@@ -23,6 +22,13 @@ export const cpdeTheme = createTheme({
       defaultProps: { size: 'large', disableElevation: true },
       styleOverrides: {
         root: { minHeight: 48, borderRadius: 14 }, // large touch target
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backdropFilter: 'saturate(180%) blur(10px)',
+        },
       },
     },
     MuiTextField: {

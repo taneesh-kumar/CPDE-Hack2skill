@@ -53,14 +53,15 @@ export default function FieldBoundaryMap({ onPolygonChanged }) {
   }
 
   return (
-    <Paper variant="outlined" sx={{ p: 1.5, borderRadius: 3 }}>
+    <Paper variant="outlined" sx={{ p: 2.5, borderRadius: '14px', overflow: 'hidden', boxSizing: 'border-box' }}>
       <Stack spacing={1}>
         <Box
           sx={{
             height: { xs: 320, md: 380 },
             width: '100%',
-            borderRadius: 2.5,
+            borderRadius: '14px',
             overflow: 'hidden',
+            boxSizing: 'border-box',
             bgcolor: 'grey.100',
           }}
         >

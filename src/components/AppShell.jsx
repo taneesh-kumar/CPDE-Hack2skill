@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Container, Divider, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, Container, Divider, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Link as RouterLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth'
 import cpdeLogo from '../assets/image-removebg-preview (4).png'
 import { useAuth } from '../auth/AuthProvider.jsx'
 import { auth } from '../config/firebase.js'
+import AppFooter from './AppFooter.jsx'
 
 export default function AppShell() {
   const location = useLocation()
@@ -36,63 +37,93 @@ export default function AppShell() {
     () =>
       isPublicTopBar
         ? {
-            bgcolor: '#4A3B32',
+            bgcolor: 'primary.main',
             color: 'common.white',
+            borderBottom: '1px solid',
+            borderColor: 'rgba(255,255,255,0.16)',
           }
         : {
             bgcolor: 'primary.main',
             color: 'common.white',
             borderBottom: '1px solid',
-            borderColor: 'rgba(255,255,255,0.18)',
+            borderColor: 'rgba(255,255,255,0.16)',
           },
     [isPublicTopBar]
   )
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', display: 'flex', flexDirection: 'column' }}>
       <AppBar
-        position={isPublicTopBar ? 'fixed' : 'sticky'}
-        color={isPublicTopBar ? 'transparent' : 'inherit'}
-        elevation={isPublicTopBar ? 0 : 0}
+        position="sticky"
+        color="transparent"
+        elevation={0}
         sx={appBarSx}
       >
         <Toolbar sx={{ minHeight: { xs: 56, sm: 64 } }}>
-          <Box
+          <Stack
+            direction="row"
+            spacing={1.25}
+            alignItems="center"
             component={RouterLink}
             to={homeRoute}
             aria-label="Go to home"
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              color: 'inherit',
-              lineHeight: 0,
-            }}
+            sx={{ textDecoration: 'none', color: 'inherit', minWidth: 0 }}
           >
             <Box
               component="img"
               src={cpdeLogo}
               alt="CPDE"
               sx={{
-                height: { xs: 40, sm: 48 },
+                height: { xs: 40, sm: 46 },
                 width: 'auto',
                 display: 'block',
+                objectFit: 'contain',
+                bgcolor: '#4A3B32',
+                border: '1px solid rgba(255,255,255,0.18)',
+                borderRadius: '14px',
+                px: 0.85,
+                py: 0.55,
+                boxShadow: '0 6px 18px rgba(0,0,0,0.18)',
               }}
             />
-          </Box>
 
-          {!isPublicTopBar && (
-            <Typography sx={{ ml: 1, color: 'rgba(255,255,255,0.85)', fontWeight: 700 }}>
-              Crop Failure Pre‑Cause Detection Engine
-            </Typography>
-          )}
+            <Box sx={{ minWidth: 0 }}>
+              <Typography
+                sx={{
+                  fontWeight: 900,
+                  fontSize: { xs: 14, sm: 15 },
+                  lineHeight: 1.15,
+                  color: 'common.white',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                CPDE – Crop Failure Pre‑Cause Detection Engine
+              </Typography>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: 12,
+                  color: 'rgba(255,255,255,0.82)',
+                  lineHeight: 1.2,
+                  display: { xs: 'none', sm: 'block' },
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                AI-powered early risk intelligence for farms
+              </Typography>
+            </Box>
+          </Stack>
 
-          {!isPublicTopBar && (
+          {!isPublicTopBar ? (
             <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
               <IconButton
                 size="small"
                 onClick={(e) => setProfileAnchor(e.currentTarget)}
-                sx={{ mr: 1, color: 'common.white' }}
+                sx={{ color: 'common.white' }}
                 aria-label="Open profile"
               >
                 <AccountCircleIcon />
@@ -128,28 +159,8 @@ export default function AppShell() {
                   Logout
                 </MenuItem>
               </Menu>
-
-              <Button
-                onClick={handleLogout}
-                variant="outlined"
-                size="small"
-                sx={{
-                  textTransform: 'none',
-                  fontWeight: 800,
-                  color: 'common.white',
-                  borderColor: 'rgba(255,255,255,0.55)',
-                  '&:hover': {
-                    borderColor: 'rgba(255,255,255,0.85)',
-                    bgcolor: 'rgba(255,255,255,0.12)',
-                  },
-                }}
-              >
-                Logout
-              </Button>
             </Box>
-          )}
-
-          {isPublicTopBar && (
+          ) : (
             <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 1.25 }}>
               <Button
                 component={RouterLink}
@@ -159,6 +170,7 @@ export default function AppShell() {
                   fontWeight: 800,
                   color: 'common.white',
                   borderColor: 'rgba(255,255,255,0.45)',
+                  '&:hover': { borderColor: 'rgba(255,255,255,0.8)', bgcolor: 'rgba(255,255,255,0.10)' },
                 }}
                 variant="outlined"
                 size="small"
@@ -170,21 +182,21 @@ export default function AppShell() {
         </Toolbar>
       </AppBar>
 
-      {isLanding ? (
-        <Box sx={{ pt: { xs: 7, sm: 8 } }}>
+      <Box component="main" sx={{ flex: 1 }}>
+        {isLanding ? (
           <Outlet />
-        </Box>
-      ) : isAuthPage ? (
-        <Box sx={{ pt: { xs: 7, sm: 8 } }}>
+        ) : isAuthPage ? (
           <Container maxWidth="lg" sx={{ py: { xs: 2, md: 3 } }}>
             <Outlet />
           </Container>
-        </Box>
-      ) : (
-        <Container maxWidth="lg" sx={{ py: { xs: 2, md: 3 } }}>
-          <Outlet />
-        </Container>
-      )}
+        ) : (
+          <Container maxWidth="lg" sx={{ py: { xs: 2, md: 3 } }}>
+            <Outlet />
+          </Container>
+        )}
+      </Box>
+
+      <AppFooter />
     </Box>
   )
 }

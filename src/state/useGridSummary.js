@@ -33,16 +33,44 @@ export function useGridSummary() {
     const redZones = levels.filter((l) => l === 'red').length
     const yellowZones = levels.filter((l) => l === 'yellow').length
 
+    const gridSize = Number(grid?.size) || null
+    const totalZones = levels.length || (gridSize ? gridSize * gridSize : 64)
+
     const riskLevel = redZones > 0 ? 'High' : yellowZones > 0 ? 'Medium' : 'Low'
+
+    const points = Array.isArray(variance) ? variance : makeDemoVariance()
+    const riskScore = clamp01((Number(points[points.length - 1]) || 0) / 100) * 100
+    const trendDirection = computeTrendDirection(points)
 
     return {
       farmerName: profile?.farmerName || 'Farmer',
       riskLevel,
       redZones,
       yellowZones,
-      last30VarianceScores: Array.isArray(variance) ? variance : makeDemoVariance(),
+      totalZones,
+      riskScore,
+      trendDirection,
+      last30VarianceScores: points,
     }
   }, [grid, variance, profile?.farmerName])
+}
+
+function clamp01(n) {
+  if (Number.isNaN(n)) return 0
+  return Math.max(0, Math.min(1, n))
+}
+
+function computeTrendDirection(points) {
+  if (!Array.isArray(points) || points.length < 8) return 'Stable'
+
+  const last = Number(points[points.length - 1]) || 0
+  const prev = Number(points[points.length - 2]) || 0
+
+  // Small threshold to avoid noisy flip-flops.
+  const delta = last - prev
+  if (delta >= 3) return 'Rising'
+  if (delta <= -3) return 'Improving'
+  return 'Stable'
 }
 
 function makeDemoVariance() {
