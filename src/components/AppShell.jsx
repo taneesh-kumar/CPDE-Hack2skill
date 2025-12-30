@@ -1,5 +1,6 @@
 import { AppBar, Box, Button, Container, Divider, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { alpha, darken } from '@mui/material/styles'
 import { Link as RouterLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import { signOut } from 'firebase/auth'
@@ -135,16 +136,55 @@ export default function AppShell() {
                 onClose={() => setProfileAnchor(null)}
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                PaperProps={{
+                  elevation: 0,
+                  sx: (theme) => ({
+                    mt: 1,
+                    minWidth: 280,
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    boxShadow: theme.shadows[6],
+                    border: '1px solid',
+                    borderColor: theme.palette.divider,
+                  }),
+                }}
+                MenuListProps={{
+                  sx: {
+                    py: 0,
+                  },
+                }}
               >
-                <MenuItem disabled sx={{ opacity: 1 }}>
-                  <Box>
-                    <Typography sx={{ fontWeight: 900, lineHeight: 1.2 }}>
-                      {profile?.farmerName || 'Farmer'}
+                <MenuItem
+                  disabled
+                  sx={(theme) => ({
+                    opacity: 1,
+                    cursor: 'default',
+                    px: 2,
+                    py: 1.6,
+                    bgcolor: theme.palette.secondary.light,
+                    alignItems: 'flex-start',
+                    '&.Mui-disabled': { opacity: 1 },
+                  })}
+                >
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography sx={{ fontWeight: 950, lineHeight: 1.15, fontSize: 14.5, color: 'text.primary' }}>
+                      Name - {profile?.farmerName || 'Farmer'}
                     </Typography>
-                    <Typography sx={{ fontWeight: 700, color: 'text.secondary', fontSize: 13 }}>
-                      {profile?.farmName || ''}
+                    <Typography sx={{ mt: 0.35, fontWeight: 850, color: 'text.secondary', fontSize: 13 }}>
+                      Farm name - {profile?.farmName || ''}
                     </Typography>
-                    <Typography sx={{ fontWeight: 600, color: 'text.secondary', fontSize: 13 }}>
+                    <Typography
+                      sx={{
+                        mt: 0.6,
+                        fontWeight: 650,
+                        color: 'text.secondary',
+                        fontSize: 12.5,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        maxWidth: 360,
+                      }}
+                    >
                       {profile?.email || user?.email || ''}
                     </Typography>
                   </Box>
@@ -155,6 +195,28 @@ export default function AppShell() {
                     setProfileAnchor(null)
                     handleLogout()
                   }}
+                  sx={(theme) => ({
+                    mx: 1.5,
+                    my: 1.25,
+                    px: 2,
+                    py: 1.15,
+                    borderRadius: 999,
+                    justifyContent: 'center',
+                    fontWeight: 900,
+                    color: 'common.white',
+                    bgcolor: theme.palette.cpde.kellyGreen,
+                    boxShadow: '0 8px 22px rgba(0,0,0,0.12)',
+                    transition: theme.transitions.create(['background-color', 'transform', 'box-shadow'], {
+                      duration: theme.transitions.duration.shortest,
+                    }),
+                    '&:hover': {
+                      bgcolor: darken(theme.palette.cpde.kellyGreen, 0.08),
+                      boxShadow: '0 10px 26px rgba(0,0,0,0.14)',
+                    },
+                    '&:active': {
+                      transform: 'scale(0.99)',
+                    },
+                  })}
                 >
                   Logout
                 </MenuItem>
@@ -165,13 +227,34 @@ export default function AppShell() {
               <Button
                 component={RouterLink}
                 to="/login"
-                sx={{
+                sx={(theme) => ({
                   textTransform: 'none',
                   fontWeight: 800,
                   color: 'common.white',
                   borderColor: 'rgba(255,255,255,0.45)',
-                  '&:hover': { borderColor: 'rgba(255,255,255,0.8)', bgcolor: 'rgba(255,255,255,0.10)' },
-                }}
+                  transition: theme.transitions.create(['background-color', 'border-color', 'box-shadow', 'transform'], {
+                    duration: theme.transitions.duration.short,
+                  }),
+                  ...(isLanding
+                    ? {
+                        '&:hover': {
+                          borderColor: 'rgba(255,255,255,0.85)',
+                          bgcolor: 'rgba(255,255,255,0.10)',
+                          boxShadow: `0 0 0 4px ${alpha(theme.palette.common.white, 0.14)}`,
+                          transform: 'translateY(-1px)',
+                        },
+                        '&:active': {
+                          transform: 'translateY(0px)',
+                          boxShadow: `0 0 0 2px ${alpha(theme.palette.common.white, 0.12)}`,
+                        },
+                        '&.Mui-focusVisible': {
+                          boxShadow: `0 0 0 4px ${alpha(theme.palette.common.white, 0.18)}`,
+                        },
+                      }
+                    : {
+                        '&:hover': { borderColor: 'rgba(255,255,255,0.8)', bgcolor: 'rgba(255,255,255,0.10)' },
+                      }),
+                })}
                 variant="outlined"
                 size="small"
               >
