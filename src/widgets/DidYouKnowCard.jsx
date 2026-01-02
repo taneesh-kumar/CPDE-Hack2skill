@@ -25,7 +25,7 @@ export default function DidYouKnowCard() {
       elevation={0}
     >
       <Box sx={{ p: { xs: 2.5, md: 3 }, height: '100%', boxSizing: 'border-box', width: '100%', overflow: 'hidden' }}>
-        <Stack spacing={3}>
+        <Stack spacing={3} sx={{ height: '100%' }} justifyContent="space-between">
           <Stack direction="row" spacing={1.5} alignItems="center">
             <Box
               sx={{

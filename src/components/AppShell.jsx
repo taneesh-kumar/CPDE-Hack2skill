@@ -123,6 +123,38 @@ export default function AppShell() {
             <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
               <Button
                 component={RouterLink}
+                to="/dashboard"
+                sx={(theme) => ({
+                  textTransform: 'none',
+                  fontWeight: 800,
+                  color: 'common.white',
+                  borderColor: 'rgba(255,255,255,0.45)',
+                  mr: 1,
+                  transition: theme.transitions.create(['background-color', 'border-color', 'box-shadow', 'transform'], {
+                    duration: theme.transitions.duration.short,
+                  }),
+                  '&:hover': {
+                    borderColor: 'rgba(255,255,255,0.85)',
+                    bgcolor: 'rgba(255,255,255,0.10)',
+                    boxShadow: `0 0 0 4px ${alpha(theme.palette.common.white, 0.14)}`,
+                    transform: 'translateY(-1px)',
+                  },
+                  '&:active': {
+                    transform: 'translateY(0px)',
+                    boxShadow: `0 0 0 2px ${alpha(theme.palette.common.white, 0.12)}`,
+                  },
+                  '&.Mui-focusVisible': {
+                    boxShadow: `0 0 0 4px ${alpha(theme.palette.common.white, 0.18)}`,
+                  },
+                })}
+                variant="outlined"
+                size="small"
+              >
+                Home
+              </Button>
+
+              <Button
+                component={RouterLink}
                 to="/qa"
                 sx={(theme) => ({
                   textTransform: 'none',
@@ -305,7 +337,7 @@ export default function AppShell() {
             <Outlet />
           </Container>
         ) : (
-          <Container maxWidth="lg" sx={{ py: { xs: 2, md: 3 } }}>
+          <Container maxWidth="xl" sx={{ py: { xs: 2, md: 3 } }}>
             <Outlet />
           </Container>
         )}

@@ -12,7 +12,7 @@ import { Line } from 'react-chartjs-2'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend)
 
-export default function RiskTrendChart({ points }) {
+export default function RiskTrendChart({ points, height }) {
   const theme = useTheme()
 
   const safeMax = 40
@@ -121,9 +121,15 @@ export default function RiskTrendChart({ points }) {
             </Typography>
           </Stack>
 
-          <div style={{ position: 'relative', height: 280, overflow: 'hidden' }}>
+          <Box
+            sx={{
+              position: 'relative',
+              height: height || { xs: 260, sm: 300, md: 360 },
+              overflow: 'hidden',
+            }}
+          >
             <Line data={data} options={options} plugins={[thresholdBands]} />
-          </div>
+          </Box>
         </Stack>
       </Box>
     </Paper>

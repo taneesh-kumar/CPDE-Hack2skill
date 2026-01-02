@@ -20,7 +20,6 @@ import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import DidYouKnowCard from '../widgets/DidYouKnowCard.jsx'
-import RiskTrendChart from '../widgets/RiskTrendChart.jsx'
 import { useGridSummary } from '../state/useGridSummary.js'
 
 export default function Dashboard() {
@@ -215,6 +214,25 @@ export default function Dashboard() {
               >
                 Alerts & Education
               </Button>
+
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => navigate('/risk-trends')}
+                startIcon={<TrendingUpRoundedIcon />}
+                sx={{
+                  fontWeight: 900,
+                  flex: { sm: '1 1 0' },
+                  minWidth: 0,
+                  maxWidth: '100%',
+                  width: { xs: '100%', sm: 'auto' },
+                  whiteSpace: 'normal',
+                  textAlign: 'center',
+                  lineHeight: 1.2,
+                }}
+              >
+                Risk Analysis Trends
+              </Button>
             </Stack>
           </Stack>
         </Box>
@@ -237,68 +255,63 @@ export default function Dashboard() {
         </Box>
       </Box>
 
-      <Box>
-        <Typography sx={{ fontWeight: 950, mb: 1 }}>Analysis</Typography>
-        <Grid container spacing={2.25} alignItems="stretch">
-          <Grid item xs={12} md={7}>
-            <RiskTrendChart points={summary.last30VarianceScores} />
-          </Grid>
-          <Grid item xs={12} md={5}>
-            <DidYouKnowCard />
-          </Grid>
+      <Grid container spacing={2.25} alignItems="stretch">
+        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
+          <DidYouKnowCard />
         </Grid>
-      </Box>
+        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 0,
+              height: '100%',
+              borderRadius: '14px',
+              border: '1px solid',
+              borderColor: 'rgba(31, 122, 77, 0.18)',
+              bgcolor: 'secondary.light',
+              overflow: 'hidden',
+              boxSizing: 'border-box',
+              boxShadow: '0 10px 26px rgba(16,31,22,0.10)',
+            }}
+          >
+            <Box sx={{ p: { xs: 2.5, md: 3 }, height: '100%', boxSizing: 'border-box', width: '100%', overflow: 'hidden' }}>
+              <Stack spacing={3} sx={{ height: '100%' }}>
+                <Stack spacing={1}>
+                  <Typography sx={{ fontWeight: 950, fontSize: 16 }}>Today’s Quick Actions</Typography>
+                  <Typography sx={{ color: 'text.secondary', fontWeight: 750 }}>
+                    Simple steps that reduce risk immediately
+                  </Typography>
+                </Stack>
 
+                <Divider sx={{ borderColor: 'rgba(31, 122, 77, 0.14)' }} />
 
-      <Paper
-        elevation={0}
-        sx={{
-          p: 0,
-          borderRadius: '14px',
-          border: '1px solid',
-          borderColor: 'rgba(31, 122, 77, 0.18)',
-          bgcolor: 'secondary.light',
-          overflow: 'hidden',
-          boxSizing: 'border-box',
-          boxShadow: '0 10px 26px rgba(16,31,22,0.10)',
-        }}
-      >
-        <Box sx={{ p: { xs: 2.5, md: 3 }, boxSizing: 'border-box', width: '100%', overflow: 'hidden' }}>
-          <Stack spacing={3}>
-            <Stack spacing={1}>
-              <Typography sx={{ fontWeight: 950, fontSize: 16 }}>Today’s Quick Actions</Typography>
-              <Typography sx={{ color: 'text.secondary', fontWeight: 750 }}>
-                Simple steps that reduce risk immediately
-              </Typography>
-            </Stack>
-
-            <Divider sx={{ borderColor: 'rgba(31, 122, 77, 0.14)' }} />
-
-            <Stack spacing={1.5}>
-              <QuickActionRow
-                checked={checks.uneven}
-                onChange={(next) => setChecks((s) => ({ ...s, uneven: next }))}
-                label="Inspect most uneven zones first"
-              />
-              <QuickActionRow
-                checked={checks.nozzles}
-                onChange={(next) => setChecks((s) => ({ ...s, nozzles: next }))}
-                label="Check clogged nozzles or drip emitters"
-              />
-              <QuickActionRow
-                checked={checks.pressure}
-                onChange={(next) => setChecks((s) => ({ ...s, pressure: next }))}
-                label="Verify water distribution consistency"
-              />
-              <QuickActionRow
-                checked={checks.color}
-                onChange={(next) => setChecks((s) => ({ ...s, color: next }))}
-                label="Observe field edges for stress"
-              />
-            </Stack>
-          </Stack>
-        </Box>
-      </Paper>
+                <Stack spacing={1.5} sx={{ flex: 1 }}>
+                  <QuickActionRow
+                    checked={checks.uneven}
+                    onChange={(next) => setChecks((s) => ({ ...s, uneven: next }))}
+                    label="Inspect most uneven zones first"
+                  />
+                  <QuickActionRow
+                    checked={checks.nozzles}
+                    onChange={(next) => setChecks((s) => ({ ...s, nozzles: next }))}
+                    label="Check clogged nozzles or drip emitters"
+                  />
+                  <QuickActionRow
+                    checked={checks.pressure}
+                    onChange={(next) => setChecks((s) => ({ ...s, pressure: next }))}
+                    label="Verify water distribution consistency"
+                  />
+                  <QuickActionRow
+                    checked={checks.color}
+                    onChange={(next) => setChecks((s) => ({ ...s, color: next }))}
+                    label="Observe field edges for stress"
+                  />
+                </Stack>
+              </Stack>
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
     </Stack>
   )
 }

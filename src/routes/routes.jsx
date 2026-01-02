@@ -7,6 +7,7 @@ import Dashboard from '../screens/Dashboard.jsx'
 import Analysis from '../screens/Analysis.jsx'
 import AlertsHub from '../screens/AlertsHub.jsx'
 import QandA from '../screens/QandA.jsx'
+import RiskAnalysisTrends from '../screens/RiskAnalysisTrends.jsx'
 import ProtectedRoute from '../auth/ProtectedRoute.jsx'
 
 export const router = createBrowserRouter([
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
           { path: '/dashboard', element: <Dashboard /> },
           { path: '/analysis', element: <Analysis /> },
           { path: '/alerts', element: <AlertsHub /> },
+          { path: '/risk-trends', element: <RiskAnalysisTrends /> },
           { path: '/qa', element: <QandA /> },
         ],
       },
