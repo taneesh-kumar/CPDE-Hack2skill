@@ -221,7 +221,7 @@ export default function Dashboard() {
       </Paper>
 
       <Box>
-        <Typography sx={{ fontWeight: 950, mb: 1 }}>KPI Summary</Typography>
+        <Typography sx={{ fontWeight: 950, mb: 1 }}>KPI Summary (Key Performance Indicator)</Typography>
         <Box sx={{ overflowX: 'auto', pb: 0.5 }}>
           <Stack direction="row" spacing={1.5} sx={{ minWidth: 'max-content' }}>
             <KpiCard icon={<GridViewRoundedIcon fontSize="small" />} label="Total Zones" value={summary.totalZones || 0} />

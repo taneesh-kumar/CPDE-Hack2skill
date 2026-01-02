@@ -6,6 +6,7 @@ import Register from '../screens/Register.jsx'
 import Dashboard from '../screens/Dashboard.jsx'
 import Analysis from '../screens/Analysis.jsx'
 import AlertsHub from '../screens/AlertsHub.jsx'
+import QandA from '../screens/QandA.jsx'
 import ProtectedRoute from '../auth/ProtectedRoute.jsx'
 
 export const router = createBrowserRouter([
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
       { path: '/', element: <Landing /> },
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
+      { path: '/qa', element: <QandA /> },
       {
         element: <ProtectedRoute />,
         children: [
