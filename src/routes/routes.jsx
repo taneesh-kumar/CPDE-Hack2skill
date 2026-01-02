@@ -16,13 +16,13 @@ export const router = createBrowserRouter([
       { path: '/', element: <Landing /> },
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },
-      { path: '/qa', element: <QandA /> },
       {
         element: <ProtectedRoute />,
         children: [
           { path: '/dashboard', element: <Dashboard /> },
           { path: '/analysis', element: <Analysis /> },
           { path: '/alerts', element: <AlertsHub /> },
+          { path: '/qa', element: <QandA /> },
         ],
       },
     ],

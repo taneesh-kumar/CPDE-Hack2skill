@@ -258,43 +258,6 @@ export default function AppShell() {
             <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 1.25 }}>
               <Button
                 component={RouterLink}
-                to="/qa"
-                sx={(theme) => ({
-                  textTransform: 'none',
-                  fontWeight: 800,
-                  color: 'common.white',
-                  borderColor: 'rgba(255,255,255,0.45)',
-                  transition: theme.transitions.create(['background-color', 'border-color', 'box-shadow', 'transform'], {
-                    duration: theme.transitions.duration.short,
-                  }),
-                  ...(isLanding
-                    ? {
-                        '&:hover': {
-                          borderColor: 'rgba(255,255,255,0.85)',
-                          bgcolor: 'rgba(255,255,255,0.10)',
-                          boxShadow: `0 0 0 4px ${alpha(theme.palette.common.white, 0.14)}`,
-                          transform: 'translateY(-1px)',
-                        },
-                        '&:active': {
-                          transform: 'translateY(0px)',
-                          boxShadow: `0 0 0 2px ${alpha(theme.palette.common.white, 0.12)}`,
-                        },
-                        '&.Mui-focusVisible': {
-                          boxShadow: `0 0 0 4px ${alpha(theme.palette.common.white, 0.18)}`,
-                        },
-                      }
-                    : {
-                        '&:hover': { borderColor: 'rgba(255,255,255,0.8)', bgcolor: 'rgba(255,255,255,0.10)' },
-                      }),
-                })}
-                variant="outlined"
-                size="small"
-              >
-                Q&amp;A
-              </Button>
-
-              <Button
-                component={RouterLink}
                 to="/login"
                 sx={(theme) => ({
                   textTransform: 'none',
