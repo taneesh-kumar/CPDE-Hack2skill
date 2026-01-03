@@ -4,7 +4,6 @@ import {
   Checkbox,
   Chip,
   Divider,
-  Grid,
   LinearProgress,
   Paper,
   Stack,
@@ -255,63 +254,70 @@ export default function Dashboard() {
         </Box>
       </Box>
 
-      <Grid container spacing={2.25} alignItems="stretch">
-        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+          alignItems: 'stretch',
+          gap: 2.25,
+        }}
+      >
+        <Box sx={{ minWidth: 0, height: '100%' }}>
           <DidYouKnowCard />
-        </Grid>
-        <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
-          <Paper
-            elevation={0}
-            sx={{
-              p: 0,
-              height: '100%',
-              borderRadius: '14px',
-              border: '1px solid',
-              borderColor: 'rgba(31, 122, 77, 0.18)',
-              bgcolor: 'secondary.light',
-              overflow: 'hidden',
-              boxSizing: 'border-box',
-              boxShadow: '0 10px 26px rgba(16,31,22,0.10)',
-            }}
-          >
-            <Box sx={{ p: { xs: 2.5, md: 3 }, height: '100%', boxSizing: 'border-box', width: '100%', overflow: 'hidden' }}>
-              <Stack spacing={3} sx={{ height: '100%' }}>
-                <Stack spacing={1}>
-                  <Typography sx={{ fontWeight: 950, fontSize: 16 }}>Today’s Quick Actions</Typography>
-                  <Typography sx={{ color: 'text.secondary', fontWeight: 750 }}>
-                    Simple steps that reduce risk immediately
-                  </Typography>
-                </Stack>
+        </Box>
 
-                <Divider sx={{ borderColor: 'rgba(31, 122, 77, 0.14)' }} />
-
-                <Stack spacing={1.5} sx={{ flex: 1 }}>
-                  <QuickActionRow
-                    checked={checks.uneven}
-                    onChange={(next) => setChecks((s) => ({ ...s, uneven: next }))}
-                    label="Inspect most uneven zones first"
-                  />
-                  <QuickActionRow
-                    checked={checks.nozzles}
-                    onChange={(next) => setChecks((s) => ({ ...s, nozzles: next }))}
-                    label="Check clogged nozzles or drip emitters"
-                  />
-                  <QuickActionRow
-                    checked={checks.pressure}
-                    onChange={(next) => setChecks((s) => ({ ...s, pressure: next }))}
-                    label="Verify water distribution consistency"
-                  />
-                  <QuickActionRow
-                    checked={checks.color}
-                    onChange={(next) => setChecks((s) => ({ ...s, color: next }))}
-                    label="Observe field edges for stress"
-                  />
-                </Stack>
+        <Paper
+          elevation={0}
+          sx={{
+            p: 0,
+            height: '100%',
+            width: '100%',
+            borderRadius: '14px',
+            border: '1px solid',
+            borderColor: 'rgba(31, 122, 77, 0.18)',
+            bgcolor: 'secondary.light',
+            overflow: 'hidden',
+            boxSizing: 'border-box',
+            boxShadow: '0 10px 26px rgba(16,31,22,0.10)',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Box sx={{ p: { xs: 2.5, md: 3 }, height: '100%', boxSizing: 'border-box', width: '100%', overflow: 'hidden' }}>
+            <Stack spacing={3} sx={{ height: '100%' }}>
+              <Stack spacing={1}>
+                <Typography sx={{ fontWeight: 950, fontSize: 16 }}>Today’s Quick Actions</Typography>
+                <Typography sx={{ color: 'text.secondary', fontWeight: 750 }}>Simple steps that reduce risk immediately</Typography>
               </Stack>
-            </Box>
-          </Paper>
-        </Grid>
-      </Grid>
+
+              <Divider sx={{ borderColor: 'rgba(31, 122, 77, 0.14)' }} />
+
+              <Stack spacing={1.5} sx={{ flex: 1 }}>
+                <QuickActionRow
+                  checked={checks.uneven}
+                  onChange={(next) => setChecks((s) => ({ ...s, uneven: next }))}
+                  label="Inspect most uneven zones first"
+                />
+                <QuickActionRow
+                  checked={checks.nozzles}
+                  onChange={(next) => setChecks((s) => ({ ...s, nozzles: next }))}
+                  label="Check clogged nozzles or drip emitters"
+                />
+                <QuickActionRow
+                  checked={checks.pressure}
+                  onChange={(next) => setChecks((s) => ({ ...s, pressure: next }))}
+                  label="Verify water distribution consistency"
+                />
+                <QuickActionRow
+                  checked={checks.color}
+                  onChange={(next) => setChecks((s) => ({ ...s, color: next }))}
+                  label="Observe field edges for stress"
+                />
+              </Stack>
+            </Stack>
+          </Box>
+        </Paper>
+      </Box>
     </Stack>
   )
 }

@@ -15,12 +15,14 @@ export default function DidYouKnowCard() {
       sx={{
         p: 0,
         height: '100%',
+        width: '100%',
         borderRadius: '14px',
         overflow: 'hidden',
         boxSizing: 'border-box',
         bgcolor: 'secondary.light',
         border: '1px solid',
         borderColor: 'rgba(31, 122, 77, 0.18)',
+        boxShadow: '0 10px 26px rgba(16,31,22,0.10)',
       }}
       elevation={0}
     >
